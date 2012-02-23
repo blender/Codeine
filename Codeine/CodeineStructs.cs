@@ -7,7 +7,7 @@ namespace Codeine
     [Serializable]
     public struct ContactDescriptor
     {
-        public ContactDescriptor(byte byteVal, double posX, double posY, double orient)
+        public ContactDescriptor(byte byteVal, int posX, int posY, int orient)
         {
             byteValue = byteVal;
             positionX = posX;
@@ -16,9 +16,9 @@ namespace Codeine
         }
 
         public byte byteValue;
-        public double positionX;
-        public double positionY;
-        public double orientation;
+        public int positionX;
+        public int positionY;
+        public int orientation;
     }
 
     //[StructLayout(LayoutKind.Sequential)]
@@ -55,13 +55,15 @@ namespace Codeine
         {
             MemoryStream ms = new MemoryStream();
             ms.Write(BitConverter.GetBytes(cd.byteValue), 0, sizeof(byte));
-            ms.Write(BitConverter.GetBytes(cd.orientation), 0, sizeof(double));
-            ms.Write(BitConverter.GetBytes(cd.positionX), 0, sizeof(double));
-            ms.Write(BitConverter.GetBytes(cd.positionY), 0, sizeof(double));
+
+            ms.Write(BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(cd.positionX)), 0, sizeof(int));
+            ms.Write(BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(cd.positionY)), 0, sizeof(int));
+            ms.Write(BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(cd.orientation)), 0, sizeof(int));
+            
 
             return ms.ToArray();
         }
-        private static int sizeofCD = sizeof(byte) + 3 * sizeof(double);
+        private static int sizeofCD = sizeof(byte) + 3 * sizeof(int);
         public static PackedContactDescriptors fromArray(byte[] data)
         {
             PackedContactDescriptors pcd = new PackedContactDescriptors();
@@ -85,13 +87,15 @@ namespace Codeine
             
             cd.byteValue = buff[0];
             int s = 0;
-            s += sizeof(byte);
-            cd.orientation = BitConverter.ToDouble(buff,  s);
-            s += sizeof(double);
-            cd.positionX = BitConverter.ToDouble(buff, s);
+            s += sizeof(int);
+            cd.positionX = System.Net.IPAddress.NetworkToHostOrder(BitConverter.ToInt32(buff, s));
 
-            s += sizeof(double);
-            cd.positionY = BitConverter.ToDouble(buff, s);
+            s += sizeof(int);
+            cd.positionY = System.Net.IPAddress.NetworkToHostOrder(BitConverter.ToInt32(buff, s));
+
+            s += sizeof(byte);
+            cd.orientation = System.Net.IPAddress.NetworkToHostOrder(BitConverter.ToInt32(buff, s));
+
             return cd;
         }
     }
