@@ -10,12 +10,18 @@ namespace Codeine
         public ContactDescriptor(byte byteVal, int posX, int posY, int orient)
         {
             byteValue = byteVal;
+            _pad8 = byteVal;
+            _pad16 = byteVal;
+            _pad32 = byteVal;
             positionX = posX;
             positionY = posY;
             orientation = orient;
         }
 
         public byte byteValue;
+        public byte _pad8;
+        public byte _pad16;
+        public byte _pad32;
         public int positionX;
         public int positionY;
         public int orientation;
@@ -54,16 +60,18 @@ namespace Codeine
         public static byte[] ToByteArray(ContactDescriptor cd)
         {
             MemoryStream ms = new MemoryStream();
-            ms.Write(BitConverter.GetBytes(cd.byteValue), 0, sizeof(byte));
-
-            ms.Write(BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(cd.positionX)), 0, sizeof(int));
-            ms.Write(BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(cd.positionY)), 0, sizeof(int));
-            ms.Write(BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(cd.orientation)), 0, sizeof(int));
+            ms.Write(BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder*/(cd.byteValue)), 0, sizeof(byte));
+            ms.Write(BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder*/(cd._pad8)), 0, sizeof(byte));
+            ms.Write(BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder*/(cd._pad16)), 0, sizeof(byte));
+            ms.Write(BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder*/(cd._pad32)), 0, sizeof(byte));
+            ms.Write(BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder*/(cd.positionX)), 0, sizeof(int));
+            ms.Write(BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder*/(cd.positionY)), 0, sizeof(int));
+            ms.Write(BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder*/(cd.orientation)), 0, sizeof(int));
             
 
             return ms.ToArray();
         }
-        private static int sizeofCD = sizeof(byte) + 3 * sizeof(int);
+        private static int sizeofCD = 4*sizeof(byte) + 3 * sizeof(int);
         public static PackedContactDescriptors fromArray(byte[] data)
         {
             PackedContactDescriptors pcd = new PackedContactDescriptors();
@@ -86,6 +94,9 @@ namespace Codeine
             ContactDescriptor cd = new ContactDescriptor();
             
             cd.byteValue = buff[0];
+            cd._pad8 = buff[1];
+            cd._pad16 = buff[2];
+            cd._pad32 = buff[3];
             int s = 0;
             s += sizeof(int);
             cd.positionX = System.Net.IPAddress.NetworkToHostOrder(BitConverter.ToInt32(buff, s));
@@ -93,7 +104,7 @@ namespace Codeine
             s += sizeof(int);
             cd.positionY = System.Net.IPAddress.NetworkToHostOrder(BitConverter.ToInt32(buff, s));
 
-            s += sizeof(byte);
+            s += sizeof(int);
             cd.orientation = System.Net.IPAddress.NetworkToHostOrder(BitConverter.ToInt32(buff, s));
 
             return cd;
