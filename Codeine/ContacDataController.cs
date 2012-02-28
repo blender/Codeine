@@ -58,6 +58,7 @@ namespace Codeine
                {
                    Point p = c.GetPosition(parentGrid);
                    desc = new ContactDescriptor(c.Tag.Byte.Value, (int)p.X, (int)p.Y, (int)(c.GetOrientation(parentGrid)*10.0));
+                   contactDictionary.Add(c, desc);
                }
            }
        }
