@@ -1,9 +1,0 @@
-C:\Users\chalmers\Documents\Visual Studio 2008\Projects\Codeine\CodeineClient\bin\Debug\CodeineClient.exe
-C:\Users\chalmers\Documents\Visual Studio 2008\Projects\Codeine\CodeineClient\bin\Debug\CodeineClient.pdb
-C:\Users\chalmers\Documents\Visual Studio 2008\Projects\Codeine\CodeineClient\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\chalmers\Documents\Visual Studio 2008\Projects\Codeine\CodeineClient\obj\Debug\CodeineClient.exe
-C:\Users\chalmers\Documents\Visual Studio 2008\Projects\Codeine\CodeineClient\obj\Debug\CodeineClient.pdb
-C:\Users\chalmers\Documents\Visual Studio 2008\Projects\Codeine\CodeineClient\bin\Debug\Resources\iconPreview.png
-C:\Users\chalmers\Documents\Visual Studio 2008\Projects\Codeine\CodeineClient\bin\Debug\Resources\icon.png
-C:\Users\chalmers\Documents\Visual Studio 2008\Projects\Codeine\CodeineClient\bin\Debug\Codeine.exe
-C:\Users\chalmers\Documents\Visual Studio 2008\Projects\Codeine\CodeineClient\bin\Debug\Codeine.pdb
