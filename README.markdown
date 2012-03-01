@@ -16,9 +16,11 @@ Thankfully our set-up is replicable pretty easily, and I am pretty sure the outc
 
 
 ## Set up
+
 ######On the Mac
 *	install the iOS SDK and Xcode
 *	download https://github.com/blender/pieMenu 
+
 ######On the PC
 *	install Visual Studio 2008 (2008 NOT 2010)
 *	install the Microsoft Surface 1.0 SDK Workstation Edition http://www.microsoft.com/download/en/details.aspx?displaylang=en&id=15532
@@ -26,15 +28,18 @@ Thankfully our set-up is replicable pretty easily, and I am pretty sure the outc
 *	download https://github.com/blender/Codeine
 
 ## Running (follow these steps in order)
+
 ######On the PC
 *	run the Surface Simulator bundled with the surface SDK (this is to get the toolbars for moving byte tags and other contacts around)
 *	open the Codeine solution, select the Codeine project and mark it as Startup project (right click, set as startup project)
 *	run the code
+
 ######On the Mac
 *	edit the AppDelegate.m file and insert the IP address of the machine where the surface simulator is now running
 *	run the pieMenu project
 
 ## Operating
+
 ######On the PC:
 *	on the Surface Simulator where Codeine is now running place a byteTag with byteValue C0 on the surface by pressing the left and right mouse buttons at the same time. C0 is the byteValue identifier for the iPad. You have now placed an iPad on the Surface.
 *	insert any other value in the byteValue and move a second byteTag around the Surface. Depending of the position and orientation of the second byteTag relative to the first tag the corresponding slice on the iPad simulator will be selected and change color depending of the orientation.
