@@ -36,11 +36,29 @@ namespace CodeineClient
                 }
 
                 Console.WriteLine("Connection succeded!");
-                Console.WriteLine("Press Enter to start handshake...");
-                Console.ReadLine();
-                Console.WriteLine("Handshaking...");
-                string handShakeSting = "hello!";
-                uClient.Send(Encoding.ASCII.GetBytes(handShakeSting), handShakeSting.Length);
+                Console.WriteLine("Press 's' to send SET message or 'g' for GET message...");
+              
+                string cmd = Console.ReadLine();
+                CodeineMessage msg = null;
+
+                if (cmd.Equals("g"))
+                {
+                    Console.WriteLine("Sending GET Message...");
+                    msg = new CodeineMessage(_t_CDMSG._t_MSGGET, (byte)_t_MSGGET.ips);
+                }
+                if (cmd.Equals("s")) 
+                {
+                    Console.WriteLine("Sending SET Message...");
+                    string ipAddr = "192.169.000.000";
+                    System.Text.ASCIIEncoding  encoding=new System.Text.ASCIIEncoding();
+                    byte[] encodedIP = encoding.GetBytes(ipAddr);
+                    msg = new CodeineMessage(_t_CDMSG._t_MSGSET, (byte)_t_MSGSET.ip, encodedIP);
+                    //FIXME: Something is wrong here econdedIP does not get copied
+                    //and the correspoind field of the structure must be filled manually
+                }
+
+                byte[] bytes = msg.ToByteArray();
+                uClient.Send(bytes, bytes.Length);
                 Console.WriteLine("Handshake completed!");
                 IPEndPoint remote = new IPEndPoint(IPAddress.Any, udpPortCli);
                 Console.WriteLine("Waiting for data...");

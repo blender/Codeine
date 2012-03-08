@@ -6,7 +6,7 @@ Science should be replicable, thus some good engineering is needed! Many papers 
 
 Thankfully our set-up is replicable pretty easily, and I am pretty sure the outcome is not going to vary.
 
-## What is need
+## What is needed
 *	1 Mac and 1 PC  (or 1 mac running a virtual machine with Windows)
 *	1 copy of Xcode and the iOS SDK (preferably iOS 5 SDK)
 *	1 iOS Device (iPhone/iPod Touch/iPad running iOS 5)

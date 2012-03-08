@@ -13,11 +13,13 @@ namespace Codeine
 
         private static ContacDataController instance;
         private static Dictionary<Contact, ContactDescriptor> contactDictionary;
+        private static Dictionary<byte, DeviceInformation> deviceInfoDictionary;
 
         private ContacDataController()
         {
 
             contactDictionary = new Dictionary<Contact, ContactDescriptor>();
+            deviceInfoDictionary = new Dictionary<byte, DeviceInformation>();
         
         }
 
@@ -45,6 +47,7 @@ namespace Codeine
                 double orientation = c.GetOrientation(parentGrid);
                 ContactDescriptor desc = new ContactDescriptor(c.Tag.Byte.Value, (int)p.X, (int) p.Y,(int) (orientation*10.0));
                 contactDictionary.Add(c, desc);
+                deviceInfoDictionary.Add(c.Tag.Byte.Value, new DeviceInformation(c.Tag.Byte.Value,""));
             }
        }
 
@@ -67,7 +70,8 @@ namespace Codeine
        {
            if (c.Tag.Type == TagType.Byte)
            {
-                   contactDictionary.Remove(c);
+               contactDictionary.Remove(c);
+               deviceInfoDictionary.Remove(c.Tag.Byte.Value); 
            }
        }
 
@@ -79,11 +83,38 @@ namespace Codeine
               int i = 0;
               foreach(KeyValuePair<Contact, ContactDescriptor> k in contactDictionary)
               {
-                  cds[i++] = k.Value;             
+                  if (i < 10)
+                  {
+                      cds[i++] = k.Value;
+                  }
               }
 
               return new PackedContactDescriptors((byte)contactDictionary.Count, cds);
            }
+       }
+
+       public PackedDeviceInformations packedDeviceInfos 
+       {
+           get 
+           {
+               DeviceInformation[] dInfos = new DeviceInformation[10];
+               int i = 0;
+               foreach (KeyValuePair<byte, DeviceInformation> k in deviceInfoDictionary)
+               {
+                   if (i < 10)
+                   {
+                       dInfos[i++] = k.Value;
+                   }
+               }
+
+               return new PackedDeviceInformations((byte)deviceInfoDictionary.Count, dInfos);
+           }       
+       }
+
+       public void updateDeviceInfo(DeviceInformation deviceInfo) 
+       {
+           deviceInfoDictionary.Remove(deviceInfo.contactDescriptorByteValue);
+           deviceInfoDictionary.Add(deviceInfo.contactDescriptorByteValue, deviceInfo);
        }
      }
 }

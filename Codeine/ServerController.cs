@@ -53,23 +53,42 @@ namespace Codeine
 
         private void onRecevice(IAsyncResult res)
         {
+
+            byte[] dataToSend = new byte[0];
             UdpClient u = (UdpClient)((UdpState)(res.AsyncState)).u;
             IPEndPoint e = (IPEndPoint)((UdpState)(res.AsyncState)).e;
-            byte[] data = u.EndReceive(res, ref e);
-
-            PackedContactDescriptors descs = cDataController.packedDescriptors;
-
-
-            byte[] dataToSend = StructConverter.ToByteArray(descs);
-           
 
             UdpState s = new UdpState();
             s.e = e;
             s.u = u;
 
-            u.BeginSend(dataToSend, dataToSend.Length, e, onSend, s);
+            byte[] data = u.EndReceive(res, ref e);
 
-            s.e = new IPEndPoint(IPAddress.Any,0);  
+            CodeineMessage cdMsg = new CodeineMessage(data);
+            if (cdMsg.msgType == _t_CDMSG._t_MSGGET)
+            {
+                if (cdMsg.subType == (byte)_t_MSGGET.contacs)
+                {
+                    PackedContactDescriptors descs = cDataController.packedDescriptors;
+                    dataToSend = StructConverter.ToByteArray(descs);
+                }
+                if (cdMsg.subType == (byte)_t_MSGGET.ips)
+                {
+                    PackedDeviceInformations packedDeviceInfos = cDataController.packedDeviceInfos;
+                    dataToSend = packedDeviceInfos.ToArray();
+                }
+
+                u.BeginSend(dataToSend, dataToSend.Length, e, onSend, s);
+            }
+            if (cdMsg.msgType == _t_CDMSG._t_MSGSET) 
+            {
+                string ipStr = Encoding.ASCII.GetString(cdMsg.ipAddr);
+                Console.WriteLine(ipStr);
+                cDataController.updateDeviceInfo(new DeviceInformation(cdMsg.cdByteValue, ipStr)); 
+
+            }
+
+            s.e = new IPEndPoint(IPAddress.Any, 0);
             u.BeginReceive(onRecevice, s);
         }
 
