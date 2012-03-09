@@ -53,29 +53,30 @@ namespace CodeineClient
                     System.Text.ASCIIEncoding  encoding=new System.Text.ASCIIEncoding();
                     byte[] encodedIP = encoding.GetBytes(ipAddr);
                     msg = new CodeineMessage(_t_CDMSG._t_MSGSET, (byte)_t_MSGSET.ip, encodedIP);
-                    //FIXME: Something is wrong here econdedIP does not get copied
-                    //and the correspoind field of the structure must be filled manually
+                    msg.cdByteValue = 15;
                 }
 
                 byte[] bytes = msg.ToByteArray();
                 uClient.Send(bytes, bytes.Length);
                 Console.WriteLine("Handshake completed!");
-                IPEndPoint remote = new IPEndPoint(IPAddress.Any, udpPortCli);
-                Console.WriteLine("Waiting for data...");
                 
-                byte[] data;
+                if(cmd.Equals("g")){
+                    Console.WriteLine("Waiting for data...");
+                    
+                    byte[] data;
 
-                try
-                {
-                    data = uClient.Receive(ref remote);
-                    PackedContactDescriptors packedDescs = StructConverter.fromArray(data);
-                    uClient.Close();
+                    try
+                    {
+                        IPEndPoint remote = new IPEndPoint(IPAddress.Any, udpPortCli);
+                        data = uClient.Receive(ref remote);
+                        PackedContactDescriptors packedDescs = StructConverter.fromArray(data);
+                        uClient.Close();
+                    }
+                    catch (SocketException e)
+                    {
+                        Console.WriteLine("Socket Raised exception in receive {0}", e.ToString());
+                    }
                 }
-                catch (SocketException e)
-                {
-                    Console.WriteLine("Socket Raised exception in receive {0}", e.ToString());
-                }
-
                 Console.WriteLine("Loop? Y/n");
                 string ans = Console.ReadLine();
 

@@ -21,7 +21,7 @@ namespace Codeine
         public byte[] ToArray() 
         {
             MemoryStream ms = new MemoryStream();
-            ms.Write(BitConverter.GetBytes(this.contactDescriptorByteValue), 0, sizeof(byte));
+            ms.WriteByte((byte)this.contactDescriptorByteValue);
             byte[] bytes = Encoding.ASCII.GetBytes(this.ipAddr);
             ms.Write(bytes, 0, bytes.Length);
 

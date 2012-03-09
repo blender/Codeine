@@ -20,11 +20,14 @@ namespace Codeine
         public byte[] ToArray() 
         {
             MemoryStream ms = new MemoryStream();
-            ms.Write(BitConverter.GetBytes(this.count), 0, sizeof(byte));
+            ms.WriteByte((byte)devices.Length);
             for (int i = 0; i < devices.Length; i++) 
             {
-                byte[] bytes = devices[i].ToArray();
-                ms.Write(bytes, 0, bytes.Length);
+                if (devices[i] != null)
+                {
+                    byte[] bytes = devices[i].ToArray();
+                    ms.Write(bytes, 0, bytes.Length);
+                }
             }
 
             return ms.ToArray();
