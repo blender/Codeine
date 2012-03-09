@@ -15,6 +15,7 @@ namespace Codeine
         public byte subType;
         public byte[] ipAddr;
         public byte cdByteValue;
+        public byte ipStrLenght;
 
         static int sizeOfIpAddr = 16;
 
@@ -28,6 +29,7 @@ namespace Codeine
         {
             this.msgType = msgType;
             this.subType = subType;
+            this.ipStrLenght = (byte)ipAddr.Length;
             this.ipAddr = ipAddr;
         }
 
@@ -42,11 +44,12 @@ namespace Codeine
             }
             if (msgType == _t_CDMSG._t_MSGSET)
             {
-                byte[] buff = new byte[2];
+                byte[] buff = new byte[3];
                 ms.Read(buff, 0, buff.Length);
                 this.subType = buff[0];
                 this.cdByteValue = buff[1];
-                buff = new byte[sizeOfIpAddr];
+                this.ipStrLenght = buff[2];
+                buff = new byte[this.ipStrLenght];
                 ms.Read(buff, 0, buff.Length);
                 this.ipAddr = buff;
             }
@@ -62,9 +65,10 @@ namespace Codeine
             }
             if (this.msgType == _t_CDMSG._t_MSGSET)
             {
-                byte[] buff = new byte[2];
+                byte[] buff = new byte[3];
                 buff[0] = this.subType;
                 buff[1] = this.cdByteValue;
+                buff[2] = this.ipStrLenght;
                 ms.Write(buff, 0, buff.Length);
                 ms.Write(this.ipAddr, 0, ipAddr.Length);
             }

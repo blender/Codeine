@@ -49,7 +49,7 @@ namespace CodeineClient
                 if (cmd.Equals("s")) 
                 {
                     Console.WriteLine("Sending SET Message...");
-                    string ipAddr = "192.169.000.000";
+                    string ipAddr = "192.169.5.13";
                     System.Text.ASCIIEncoding  encoding=new System.Text.ASCIIEncoding();
                     byte[] encodedIP = encoding.GetBytes(ipAddr);
                     msg = new CodeineMessage(_t_CDMSG._t_MSGSET, (byte)_t_MSGSET.ip, encodedIP);
