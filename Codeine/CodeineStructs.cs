@@ -3,7 +3,7 @@ using System;
 using System.IO;
 namespace Codeine
 {
-    
+    /*
     [Serializable]
     public struct ContactDescriptor
     {
@@ -42,7 +42,9 @@ namespace Codeine
         public ContactDescriptor[] descArray;
 
     }
+    */
 
+    /*
     public static class StructConverter 
     {
         public static byte[] ToByteArray(PackedContactDescriptors pcd)
@@ -56,17 +58,17 @@ namespace Codeine
 
             return ms.ToArray();
         }
-
+     
         public static byte[] ToByteArray(ContactDescriptor cd)
         {
             MemoryStream ms = new MemoryStream();
-            ms.Write(BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder*/(cd.byteValue)), 0, sizeof(byte));
-            ms.Write(BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder*/(cd._pad8)), 0, sizeof(byte));
-            ms.Write(BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder*/(cd._pad16)), 0, sizeof(byte));
-            ms.Write(BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder*/(cd._pad32)), 0, sizeof(byte));
-            ms.Write(BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder*/(cd.positionX)), 0, sizeof(int));
-            ms.Write(BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder*/(cd.positionY)), 0, sizeof(int));
-            ms.Write(BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder*/(cd.orientation)), 0, sizeof(int));
+            ms.Write(BitConverter.GetBytes((cd.byteValue)), 0, sizeof(byte));
+            ms.Write(BitConverter.GetBytes((cd._pad8)), 0, sizeof(byte));
+            ms.Write(BitConverter.GetBytes((cd._pad16)), 0, sizeof(byte));
+            ms.Write(BitConverter.GetBytes((cd._pad32)), 0, sizeof(byte));
+            ms.Write(BitConverter.GetBytes((cd.positionX)), 0, sizeof(int));
+            ms.Write(BitConverter.GetBytes((cd.positionY)), 0, sizeof(int));
+            ms.Write(BitConverter.GetBytes((cd.orientation)), 0, sizeof(int));
             
 
             return ms.ToArray();
@@ -110,4 +112,5 @@ namespace Codeine
             return cd;
         }
     }
+     */
 }

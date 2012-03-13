@@ -75,16 +75,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeineMessageContacs.cs" />
     <Compile Include="CodeineMessage.cs" />
+    <Compile Include="CodeineMessageIPs.cs" />
     <Compile Include="CodeineStructs.cs" />
     <Compile Include="ContacDataController.cs" />
     <Compile Include="ContactDataVisualizer.xaml.cs">
       <DependentUpon>ContactDataVisualizer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ContactDescriptor.cs" />
     <Compile Include="ContactDiagram.xaml.cs">
       <DependentUpon>ContactDiagram.xaml</DependentUpon>
     </Compile>
     <Compile Include="DeviceInformation.cs" />
+    <Compile Include="PackedContactDescriptors.cs" />
     <Compile Include="PackedDeviceInformations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

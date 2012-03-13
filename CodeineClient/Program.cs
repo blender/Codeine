@@ -12,6 +12,9 @@ namespace CodeineClient
     class Program
     {
 
+        static void Main(string[] args) { }
+
+        /*
         private const int udpPortSrv = 4568;
         private const int udpPortCli = 4569;
         private static bool dataReceived;
@@ -86,7 +89,8 @@ namespace CodeineClient
             } while(loop);
  
         }
-
+        */
  
     }
+
 }

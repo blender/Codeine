@@ -79,17 +79,17 @@ namespace Codeine
        {
            get
            {
-              ContactDescriptor[] cds = new ContactDescriptor[10];
+              ContactDescriptor[] cds = new ContactDescriptor[contactDictionary.Count];
               int i = 0;
               foreach(KeyValuePair<Contact, ContactDescriptor> k in contactDictionary)
               {
-                  if (i < 10)
+                  if (i < contactDictionary.Count)
                   {
                       cds[i++] = k.Value;
                   }
               }
 
-              return new PackedContactDescriptors((byte)contactDictionary.Count, cds);
+              return new PackedContactDescriptors(cds);
            }
        }
 
@@ -97,17 +97,17 @@ namespace Codeine
        {
            get 
            {
-               DeviceInformation[] dInfos = new DeviceInformation[10];
+               DeviceInformation[] dInfos = new DeviceInformation[deviceInfoDictionary.Count];
                int i = 0;
                foreach (KeyValuePair<byte, DeviceInformation> k in deviceInfoDictionary)
                {
-                   if (i < 10)
+                   if (i < deviceInfoDictionary.Count)
                    {
                        dInfos[i++] = k.Value;
                    }
                }
 
-               return new PackedDeviceInformations((byte)deviceInfoDictionary.Count, dInfos);
+               return new PackedDeviceInformations(dInfos);
            }       
        }
 

@@ -65,27 +65,32 @@ namespace Codeine
             byte[] data = u.EndReceive(res, ref e);
 
             CodeineMessage cdMsg = new CodeineMessage(data);
-            if (cdMsg.msgType == _t_CDMSG._t_MSGGET)
+
+            if (cdMsg.msgType == _t_CDMSG.kMSGContacts)
             {
-                if (cdMsg.subType == (byte)_t_MSGGET.contacs)
+                if (cdMsg.subType == (byte) _t_MSGSUBTYPE.kMSGGetContacs)
                 {
                     PackedContactDescriptors descs = cDataController.packedDescriptors;
-                    dataToSend = StructConverter.ToByteArray(descs);
+                    CodeineMessageContacs cmC = new CodeineMessageContacs((byte)_t_MSGSUBTYPE.kMSGSetContacts, descs);
+                    dataToSend = cmC.ToArray();
+                    u.BeginSend(dataToSend, dataToSend.Length, e, onSend, s);
                 }
-                if (cdMsg.subType == (byte)_t_MSGGET.ips)
+            }
+            if (cdMsg.msgType == _t_CDMSG.kMSGIPs)
+            {
+                if (cdMsg.subType == (byte)_t_MSGSUBTYPE.kMSGGetIPs)
                 {
                     PackedDeviceInformations packedDeviceInfos = cDataController.packedDeviceInfos;
-                    dataToSend = packedDeviceInfos.ToArray();
+                    CodeineMessageIPs cmIPs = new CodeineMessageIPs((byte)_t_MSGSUBTYPE.kMSGSetIPs, packedDeviceInfos);
+                    dataToSend = cmIPs.ToArray();
+                    u.BeginSend(dataToSend, dataToSend.Length, e, onSend, s);
                 }
-
-                u.BeginSend(dataToSend, dataToSend.Length, e, onSend, s);
-            }
-            if (cdMsg.msgType == _t_CDMSG._t_MSGSET) 
-            {
-                string ipStr = Encoding.ASCII.GetString(cdMsg.ipAddr);
-                Console.WriteLine(ipStr);
-                cDataController.updateDeviceInfo(new DeviceInformation(cdMsg.cdByteValue, ipStr)); 
-
+                if (cdMsg.subType == (byte)_t_MSGSUBTYPE.kMSGSetIPs)
+                {
+                    CodeineMessageIPs cmIPs = new CodeineMessageIPs(data);
+                    PackedDeviceInformations pdi = cmIPs.pdi;
+                    cDataController.updateDeviceInfo(pdi.devices[0]);
+                }
             }
 
             s.e = new IPEndPoint(IPAddress.Any, 0);
