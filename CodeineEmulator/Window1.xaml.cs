@@ -52,13 +52,11 @@ namespace CodeineEmulator
 
             contactDataController = EmulatorContactDataController.Instance;
 
-            Vector v1 =  VisualTreeHelper.GetOffset(image1);
-            Point p1 = new Point(v1.X, v1.Y);
+            Point p1 = new Point(12, 39);
             ContactDescriptor c1 = new ContactDescriptor(iPhoneID,(int) p1.X,(int) p1.Y, 180.0f);
             contactDataController.addContact(iPhoneID, c1);
 
-            Vector v2 = VisualTreeHelper.GetOffset(image2);
-            Point p2 = new Point(v2.X, v2.Y);
+            Point p2 = new Point(245, 190);
             ContactDescriptor c2 = new ContactDescriptor(iPadID, (int)p2.X, (int)p2.Y, 180.0f);
             contactDataController.addContact(iPadID, c2);
 
