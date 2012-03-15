@@ -26,8 +26,8 @@ namespace CodeineEmulator
         
         private Point origin;
         private Point start;
-        public static EmulatorContactDataController contactDataController;
-        public static ServerController serverController;
+        public volatile EmulatorContactDataController contactDataController;
+        public static EmulatorServerController serverController;
 
         private static byte iPhoneID = 6;
         private static byte iPadID = 0;
@@ -62,8 +62,10 @@ namespace CodeineEmulator
             ContactDescriptor c2 = new ContactDescriptor(iPadID, (int)p2.X, (int)p2.Y, 180.0f);
             contactDataController.addContact(iPadID, c2);
 
+            //serverController = new ServerController(5);
+            //Thread oThread = new Thread(new ThreadStart(serverController.startServer));
             SeverThread fetcher = new SeverThread(this.runServer);
-
+            //oThread.Start();
             fetcher.BeginInvoke(null, null);
         }
 
@@ -82,7 +84,7 @@ namespace CodeineEmulator
                 }
             }
              */
-            serverController = ServerController.Instance;
+            serverController = EmulatorServerController.Instance;
         }
 
         private void image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

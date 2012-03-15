@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Codeine
 {
-    class CodeineMessageContacs : CodeineMessage
+    public class CodeineMessageContacs : CodeineMessage
     {
         public PackedContactDescriptors pcd;
 

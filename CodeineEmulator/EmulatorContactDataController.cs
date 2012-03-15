@@ -9,8 +9,8 @@ namespace CodeineEmulator
     public class EmulatorContactDataController
     {
         private static EmulatorContactDataController instance;
-        public static Dictionary<byte, ContactDescriptor> contactDictionary;
-        public static Dictionary<byte, DeviceInformation> deviceInfoDictionary;
+        public Dictionary<byte, ContactDescriptor> contactDictionary;
+        public Dictionary<byte, DeviceInformation> deviceInfoDictionary;
 
         private EmulatorContactDataController()
         {

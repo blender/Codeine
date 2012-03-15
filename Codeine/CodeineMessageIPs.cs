@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Codeine
 {
-    class CodeineMessageIPs : CodeineMessage
+    public class CodeineMessageIPs : CodeineMessage
     {
         public PackedDeviceInformations pdi;
 
