@@ -1,0 +1,9 @@
+﻿<Window x:Class="CodeineEmulator.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Window1" Height="500" Width="700">
+    <Grid Name="grid1">
+        <Image Margin="12,39,0,0" Name="image1" Stretch="Fill" HorizontalAlignment="Left" Width="58" MouseLeftButtonDown="image_MouseLeftButtonDown" MouseMove="image_MouseMove" MouseLeftButtonUp="image_MouseLeftButtonUp" Height="76" VerticalAlignment="Top" Cursor="Hand" Source="/CodeineEmulator;component/IPhone_3G.png" />
+        <Image Margin="245,190,243,128" Name="image2" Stretch="Fill" MouseLeftButtonDown="image_MouseLeftButtonDown" MouseMove="image_MouseMove" MouseLeftButtonUp="image_MouseLeftButtonUp" Cursor="Hand" ImageFailed="image2_ImageFailed" Source="/CodeineEmulator;component/ipad.png" />
+    </Grid>
+</Window>
