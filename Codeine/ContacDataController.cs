@@ -17,10 +17,8 @@ namespace Codeine
 
         private ContacDataController()
         {
-
             contactDictionary = new Dictionary<Contact, ContactDescriptor>();
             deviceInfoDictionary = new Dictionary<byte, DeviceInformation>();
-        
         }
 
         public static ContacDataController Instance

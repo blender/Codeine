@@ -17,7 +17,7 @@ namespace Codeine
 
 
    
-    class ServerController
+    public class ServerController
     {
         private static ServerController instance;
 
