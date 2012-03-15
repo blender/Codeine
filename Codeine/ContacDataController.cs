@@ -47,7 +47,13 @@ namespace Codeine
                 double orientation = c.GetOrientation(parentGrid);
                 ContactDescriptor desc = new ContactDescriptor(c.Tag.Byte.Value, (int)p.X, (int) p.Y,(int) (orientation*10.0));
                 contactDictionary.Add(c, desc);
-                deviceInfoDictionary.Add(c.Tag.Byte.Value, new DeviceInformation(c.Tag.Byte.Value,""));
+                try
+                {
+                    deviceInfoDictionary.Add(c.Tag.Byte.Value, new DeviceInformation(c.Tag.Byte.Value, ""));
+                }catch (Exception e) {
+                    Console.WriteLine("Device With Byte Value %d already in deviceInfoDictionary", c.Tag.Byte.Value);
+                    Console.WriteLine(e.ToString());
+                }
             }
        }
 
@@ -60,7 +66,7 @@ namespace Codeine
                if (contactDictionary.Remove(c))
                {
                    Point p = c.GetPosition(parentGrid);
-                   desc = new ContactDescriptor(c.Tag.Byte.Value, (int)p.X, (int)p.Y, (int)(c.GetOrientation(parentGrid)*10.0));
+                   desc = new ContactDescriptor(c.Tag.Byte.Value, (int)p.X, (int)p.Y, (int)(c.GetOrientation(parentGrid)));
                    contactDictionary.Add(c, desc);
                }
            }
