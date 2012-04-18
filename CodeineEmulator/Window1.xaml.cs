@@ -29,7 +29,7 @@ namespace CodeineEmulator
         public volatile EmulatorContactDataController contactDataController;
         public static EmulatorServerController serverController;
 
-        private static byte iPhoneID = 6;
+        private static byte iPhoneID = 9;
         private static byte iPadID = 0;
 
         Image img;
